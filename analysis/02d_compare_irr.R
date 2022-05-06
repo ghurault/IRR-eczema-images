@@ -129,7 +129,7 @@ mfit <- lapply(estimate_names,
                    mutate(Outcome = x)
                }) %>%
   bind_rows()
-mfit %>%
+p_conf <- mfit %>%
   filter(term != "(Intercept)") %>%
   mutate(term = gsub("Region", "Region: ", term),
          term = gsub("`", "", term),
@@ -145,6 +145,7 @@ mfit %>%
   scale_colour_manual(values = c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")) +
   labs(x = "", colour = "") +
   theme_bw(base_size = 15)
+p_conf
 # ggsave(here("results", "irr_confounders.jpg"), width = 13, height = 8, units = "cm", dpi = 300, scale = 1.5)
 
 # Sensitivity analysis ----------------------------------------------------
@@ -177,7 +178,7 @@ sens_by_raterout <- sens %>%
   ungroup() %>%
   mutate(RaterOut = gsub("_", " ", RaterOut),
          Label = paste0("Leave ", RaterOut, " out"))
-summary_stats %>%
+p_sens <- summary_stats %>%
   filter(Metric == "ICC(pixel)") %>%
   mutate(Label = "All raters") %>%
   bind_rows(sens_by_raterout) %>%
@@ -188,4 +189,18 @@ summary_stats %>%
   coord_flip(ylim = c(0, 1)) +
   labs(x = "", y = "Average ICC(pixel) across images") +
   theme_bw(base_size = 15)
+p_sens
 # ggsave(here("results", "icc_sensitivity.jpg"), width = 10, height = 5, units = "cm", dpi = 300, scale = 2.5)
+
+# Combine confounding and sensitivity plots -------------------------------
+
+cowplot::plot_grid(p_conf +
+                     theme(legend.position = "top") +
+                     guides(color = guide_legend(nrow = 2, byrow = TRUE)),
+                   p_sens,
+                   nrow = 1,
+                   rel_widths = c(.52, .48),
+                   align = "h",
+                   axis = "tb",
+                   labels = "AUTO")
+# ggsave(here("results", "irr_check.jpg"), width = 11, height = 5, units = "cm", dpi = 300, scale = 2.7, bg = "white")
