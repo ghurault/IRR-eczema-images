@@ -44,16 +44,14 @@ rpt_extent <- rptGaussian(LogitExtent ~ (1 | Rater) + (1 | filename),
 
 # IRR of the mean ---------------------------------------------------------
 
-s <- broom.mixed::tidy(rpt_extent$mod)
+s <- broom.mixed::tidy(rpt_extent$mod) %>%
+  filter(effect != "fixed")
 vg <- s$estimate[s$group == "filename"]^2
 vr <- s$estimate[s$group == "Residual"]^2
 vc <- s$estimate[s$group == "Rater"]^2
 
-# vg / (vg + vr + vc) # check value
-
 n <- 1:20
 icc <- vg / (vg + (vr + vc) / n)
-#
 plot(n, icc, ylim = c(0, 1), pch = 16, xlab = "Number of raters", ylab = "Reliability of average extent")
 abline(c(.9, 0), col = "red")
 
