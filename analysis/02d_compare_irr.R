@@ -163,7 +163,7 @@ sens_by_img <- sens %>%
             Delta = max(Value) - min(Value))
 sens_by_img %>%
   pull(Delta) %>%
-  boxplot()
+  boxplot(ylab = "Distribution Max - Min IRR by image")
 
 # How the average IRR is changing
 sens_by_raterout <- sens %>%
