@@ -107,7 +107,8 @@ load_imagespec <- function(file = here("data/interrator_statistics_extended.csv"
     summarise(MeanQuality = mean(Quality),
               MeanLabellingTime = mean(LabellingTime),
               across(all_of(c("OutOfFocus", "Overexposed", "OtherReasons", "BadImage")), any)) %>%
-    ungroup()
+    ungroup() %>%
+    mutate(Patient = gsub("0(\\d+)\\/\\w+\\.(jpg|JPG)", "\\1", filename))
   
   sev <- readr::read_csv(file) %>%
     select(filename, repsite, starts_with("sassad_"), starts_with("tiss_")) %>%
