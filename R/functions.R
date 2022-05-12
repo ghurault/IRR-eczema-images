@@ -73,9 +73,9 @@ load_metasegmentation <- function(file = here("data/interrator_statistics_extend
     mutate(Expert = gsub("_Bad-Images", "", Expert),
            Reason = replace(Reason, is.na(Reason), ""), 
            Reason = recode(Reason, "[]" = ""),
-           OutOfFocus = str_detect(Reason, "Out-of-focus"),
-           Overexposed = str_detect(Reason, "Overexposed"),
-           OtherReasons = str_detect(Reason, "Other reasons"),
+           OutOfFocus = stringr::str_detect(Reason, "Out-of-focus"),
+           Overexposed = stringr::str_detect(Reason, "Overexposed"),
+           OtherReasons = stringr::str_detect(Reason, "Other reasons"),
            BadImage = (OutOfFocus | Overexposed | OtherReasons)) %>%
     select(-Reason)
   
