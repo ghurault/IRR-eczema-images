@@ -1,6 +1,12 @@
 # Attach packages ---------------------------------------------------------
 
-library(tidyverse)
+library(dplyr)
+library(tidyr)
+library(tibble)
+library(purrr)
+library(ggplot2)
+library(forcats)
+
 library(rptR)
 library(here)
 
