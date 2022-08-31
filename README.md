@@ -1,6 +1,6 @@
 # Inter-rater reliability analysis of eczema segmentation from digital images
 
-This repository contains the code developed for the paper by [**Hurault et al. (2021), "Detecting eczema areas in digital images: an impossible task?"**](#) (submitted to publication).
+This repository contains the code developed for the paper by [**Hurault et al. (2022), "Detecting eczema areas in digital images: an impossible task?"**](https://doi.org/10.1016/j.xjidi.2022.100133) (in press at JID Innovations).
 
 The code is written in the R language for statistical computing.
 
@@ -10,7 +10,7 @@ This project is organised as a research compendium, with a similar structure as 
 
 - Functions/helpers are located in the [`R/`](R/) directory
 - Analysis scripts are located in the [`analysis/`](analysis/) directory
-- [`renv/`](renv/) and `renv.lock` are files created by the renv package to manage package dependencies (see details below).
+- [`renv/`](renv/) and `renv.lock` are files created by the [renv](https://rstudio.github.io/renv/index.html) package to manage package dependencies (see details below).
 
 ### Analysis files
 
